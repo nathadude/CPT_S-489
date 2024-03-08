@@ -1,0 +1,212 @@
+.box {
+    border: 1px solid;
+}
+
+.ht50 {
+    height: 50px;
+}
+
+.ht100 {
+    height: 100px;
+}
+
+.ht500 {
+    height: 1000px;
+}
+
+.ht100percent {
+    height: 100vh;
+}
+
+.blue-box {
+    height: 12px;
+    width: 12px;
+    background-color: blue;
+    display: inline-block;
+}
+
+.red-box {
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    display: inline-block;
+}
+
+.green-box {
+    height: 12px;
+    width: 12px;
+    background-color: green;
+    display: inline-block;
+}
+
+.purple-box {
+    height: 12px;
+    width: 12px;
+    background-color: purple;
+    display: inline-block;
+}
+
+.orange-box {
+    height: 12px;
+    width: 12px;
+    background-color: orange;
+    display: inline-block;
+}
+
+.nav-bar {
+    border-bottom: 1px solid #aaa;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1; */
+}
+
+#website-title-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-left: 30px;
+    margin-top: 8px;
+}
+
+
+#home-title-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 15px;
+    padding-left: 50px;
+}
+
+.home-title {
+    padding-left: 5px;
+}
+
+.home-title:hover {
+    font-weight: bolder;
+}
+
+.search-bar {
+  border-style: solid;
+  border-color: grey;
+  border-radius: 10px;
+  width: 400px;
+  font-size: 17px;
+  background-image: url('Images/SearchIcon.png');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: contain;
+  padding-left: 50px;
+} 
+
+.fa-user {
+    margin-right: 50px;
+}
+
+.content {
+    /* padding-top: 50px;
+    z-index: 0; */
+    font-family: sans-serif;
+}
+
+.side-bar {
+    border-right: 1px solid #aaa;
+}
+
+.home-content {
+    background-color: #eee;
+}
+
+.home-content-header {
+    font-family: sans-serif;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.btn-primary {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left: 30px;
+}
+
+#forum {
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+#list-forums:hover {
+    background-color: #eee;
+}
+
+.forum-name {
+    margin-left: 5px;
+}
+
+#discussion-link {
+    text-decoration: none;
+    color: black;
+}
+
+.discussion {
+    display: block;
+    box-sizing: border-box;
+    border-color: #dee0e1;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 10px;
+    background-color: white;
+    height: 75px;
+    width: 1000px;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+.profile-picture {    
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: lightblue;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.green {
+    background-color: lightgreen;
+}
+
+.discussion-title {
+    padding-top: 5px;
+}
+
+.discussion-user {
+    font-size: 12px;
+}
+
+#forum-link {
+    text-decoration: none;
+    color: black;
+}
+
+#forum-link:hover {
+    font-weight: bold;
+}
+
+.discussion-forum {
+    padding-top: 5px;
+    padding-right: 5px;
+    font-size: 15px;
+}
+
+
+
+
+
+  
