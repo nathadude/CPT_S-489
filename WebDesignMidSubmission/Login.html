@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
     <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+    <script>
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            if (username === "admin" && password === "admin") {
+                console.log("Login successful");
+                window.location.href = "home.html"; // Redirect to home.html
+            } else {
+                console.log("Login failed");
+                document.getElementById("loginMessage").innerText = "Login failed. Try again.";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="home.html">
+        <form>
             <div class="input-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -18,8 +32,9 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="button" onclick="login()">Login</button>
         </form>
+        <p id="loginMessage"></p>
     </div>
 </body>
 </html>
