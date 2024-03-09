@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion</title>
+    <link rel="stylesheet" href="Discussion.css">
+</head>
+<body>
+    <header>
+        <!-- Header  Content-->
+    </header>
+
+    <main class="discussion">
+        <section class="message-container">
+            <div class="message outgoing">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="message incoming">
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div class="message outgoing">
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <!-- Add more messages as needed -->
+        </section>
+
+        <form class="message-form" id="messageForm" action="#" method="post">
+            <input type="text" name="message" id="messageInput" placeholder="Type your message...">
+            <button type="button" onclick="sendMessage()">Send</button>
+        </form>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <!-- Send message wireframe for future implementation -->
+
+    <script>
+        function sendMessage() {
+            // Retrieve the message input value (if needed)
+            var message = document.getElementById("messageInput").value;
+
+            // Do something here with the message if needed
+            // Post to thread or something
+
+            // Clear the message input field
+            document.getElementById("messageInput").value = "";
+        }
+
+        // Prevent form submission -- just for demo's sake
+        document.getElementById("messageForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* Reset default browser styles */
+html, body, header, footer, div, p, ul, li, form, input, button {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic layout styles */
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.discussion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.message-container {
+    width: 80%;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 70%;
+    border-radius: 8px;
+}
+
+.outgoing {
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.incoming {
+    background-color: #f2f2f2;
+    color: #333;
+    align-self: flex-start;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message-form {
+    width: 80%;
+    display: flex;
+    margin-top: 20px;
+}
+
+.message-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.message-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.message-form button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    margin-top: 20px;
+}

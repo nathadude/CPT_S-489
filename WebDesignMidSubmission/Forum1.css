@@ -1,0 +1,70 @@
+/* Reset default browser styles */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for discussion list */
+.discussion-list {
+    margin: 20px;
+}
+
+/* Individual discussion item */
+.discussion {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.discussion-link {
+    text-decoration: none;
+    color: inherit;
+    font-family: sans-serif;
+}
+
+/* Profile picture */
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    font-family: sans-serif;
+    background-color: #b58787;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-picture span {
+    font-weight: bold;
+}
+
+/* Profile picture with green border */
+.profile-picture.green {
+    border: 2px solid #00cc00;
+}
+
+/* Discussion title */
+.discussion-title {
+    margin-bottom: 5px;
+}
+
+/* Discussion user */
+.discussion-user {
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #555;
+}
+
+/* Posted time */
+.posted-time {
+    font-style: italic;
+    font-family: sans-serif;
+    margin-left: 5px;
+}
+
+/* Discussion forum */
+.discussion-forum {
+    text-align: center;
+}
