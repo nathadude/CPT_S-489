@@ -3,9 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+const sequelize = require('./db')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var homeRouter = require('./routes/home');
+const User = require('./model/User');
+const Topic = require('./model/Topic');
+const Post = require('./model/Post');
+const Comments = require('./model/Comments');
+const TopicMembers = require('./model/TopicMembers');
+const { DATE, DATEONLY } = require('sequelize');
 
 var app = express();
 
@@ -19,8 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'wsu489',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/home', homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,6 +52,23 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+async function setup() {
+  var currentDate = new Date();
+  const josh = await User.create({
+    username: 'josh', 
+    password: '1234',
+    registration_date: currentDate.toLocaleString(),
+    premium: false,
+    admin: false
+  });
+  console.log("josh instance created...");
+}
+
+sequelize.sync({ force: true }).then(()=>{
+  console.log("Sequelize Sync Completed...");
+  setup().then((()=> console.log("User setup complete")))
 });
 
 module.exports = app;
