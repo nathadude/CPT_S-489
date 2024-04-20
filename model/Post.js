@@ -10,13 +10,13 @@ Post.init({
     postID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
+        allowNull: true,
     },
     username: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    topicID: {
+    forumID: {
         type: DataTypes.INTEGER,
         allowNull: false
     },

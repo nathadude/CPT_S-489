@@ -10,7 +10,7 @@ Comments.init({
     commentID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
+        allowNull: true,
     },
     username: {
         type: DataTypes.STRING,

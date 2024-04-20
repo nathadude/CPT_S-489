@@ -9,10 +9,10 @@ const sequelize = require('./db')
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
 const User = require('./model/User');
-const Topic = require('./model/Topic');
+const Forum = require('./model/Forum');
 const Post = require('./model/Post');
 const Comments = require('./model/Comments');
-const TopicMembers = require('./model/TopicMembers');
+const ForumMembers = require('./model/ForumMembers');
 const { DATE, DATEONLY } = require('sequelize');
 
 var app = express();
@@ -63,6 +63,32 @@ async function setup() {
     premium: false,
     admin: false
   });
+
+  const forum = await Forum.create({
+    username: 'josh', // who the forum is created by
+    forumName: 'WSU',
+    forumDesc: 'This is a forum for anything about Washington State University',
+    created_at: currentDate.toLocaleString()
+  });
+
+  const forum2 = await Forum.create({
+    username: 'josh', // who the forum is created by
+    forumName: 'CPTS489',
+    forumDesc: 'This is a forum for anything about CPTS 489/Web Dev',
+    created_at: currentDate.toLocaleString()
+  });
+
+  const forumMember1 = await ForumMembers.create({
+    username: 'josh',
+    forumID: '1'
+  });
+
+  const forumMember2 = await ForumMembers.create({
+    username: 'josh',
+    forumID: '2'
+  });
+
+
   console.log("josh instance created...");
 }
 
