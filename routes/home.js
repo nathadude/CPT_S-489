@@ -156,4 +156,26 @@ router.get('/:forumID/:postID', async function(req, res, next) {
 });
 
 
+router.post("/:forumID/createPost", async function(req, res, next) {
+  try {
+    let currentDate = new Date();
+    let created_at = currentDate.toLocaleString();
+    await Post.create(
+      {
+        username: req.session.user.username,
+        forumID: req.params.forumID,
+        title: req.body.title,
+        content: req.body.content,
+        created_at: created_at,
+        votes: 0
+      }
+    );
+
+    res.redirect('/home/' + req.params.forumID + '?msg=success&postTitle='+req.body.title);
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '?msg='+new URLSearchParams(error.toString()).toString()+'&postTitle='+req.body.title);
+  }
+});
+
+
 module.exports = router;

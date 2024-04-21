@@ -5,7 +5,7 @@ class Post extends Model {
    static async getTrendingPost() {
         try {
             const posts = await Post.findAll({
-                order: [['votes', 'DESC']]
+                order: [['votes', 'DESC'], ['created_at', 'DESC']]
             })
             return posts ? posts : null;
         } catch (error) {
