@@ -16,6 +16,23 @@ class ForumMember extends Model {
             return null;
         }
    }
+
+   static async isMember(username, forumID) {
+        try {
+            // Check if there is a record with the given username and forumID
+            const member = await ForumMember.findOne({
+                where: {
+                    username: username,
+                    forumID: forumID
+                }
+            });
+            // Return true if the user is a member, false otherwise
+            return member ? !!member : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+   }
 }
 
 ForumMember.init({

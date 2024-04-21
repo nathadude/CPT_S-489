@@ -177,13 +177,13 @@
             border-width: 1px;
             margin-bottom: 10px;
             background-color: white;
-            height: 75px;
-            width: 1000px;
+            width: 80%;
             margin-top: 15px;
             margin-left: 30px;
         }
         
-        .profile-picture {    
+        .profile-picture {   
+            margin-top: 10px; 
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -199,7 +199,7 @@
         }
         
         .discussion-title {
-            padding-top: 5px;
+            margin-top: 10px;
         }
         
         .discussion-user {
@@ -214,11 +214,15 @@
         #forum-link:hover {
             font-weight: bold;
         }
+
+        .discussion-content {
+            font-size: 15px;
+        }
         
         .discussion-forum {
-            padding-top: 5px;
-            padding-right: 5px;
-            font-size: 15px;
+            margin-top: 10px;
+            font-size: 12px;
+            align-items: baseline;
         }        
     </style>
     <script src="https://kit.fontawesome.com/5984b07bdc.js" crossorigin="anonymous"></script>
@@ -292,46 +296,34 @@
             <div class="col-10 home-content">
                 <h2 class="home-content-header">Trending Discussions</h2>
                 <div class="discussion-list">
-                    <a id="discussion-link" href="./Discussion.html">
-                        <div class="discussion">
-                            <div class="row">
-                                <div class="col-1 d-flex align-items-center justify-content-center">
-                                    <div class="profile-picture">
-                                        <span>U1</span>
+                    <% let i = 0 %>
+                    <% for (post of posts) { %>
+                        <a id="discussion-link" href="./Discussion.html">
+                            <div class="discussion">
+                                <div class="row">
+                                    <div class="col-1 d-flex align-items-start justify-content-center">
+                                        <div class="profile-picture">
+                                            <span><%= post.username[0] %></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-10">
-                                    <div class="discussion-header">
-                                        <h5 class="discussion-title">Discussion Title 1</h5>
-                                        <p class="discussion-user">User 1 <span class="posted-time">Posted 1 Hour Ago</span></p>
+                                    <div class="col-10">
+                                        <div class="discussion-header">
+                                            <h5 class="discussion-title"><%= post.title %></h5>
+                                            <p class="discussion-user"><%= post.username %> <span class="posted-time">Posted <%= post.created_at %></span></p>
+                                        </div>
+                                        <div class="discussion-body">
+                                            <p class="discussion-content"><%= post.content %></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-1">
-                                    <p class="discussion-forum">Forum 1</p>
+                                    <div class="col-1">
+                                        <div class="discussion-forum">
+                                            <span><%= forumNames[i++] %></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    <a id="discussion-link" href="./Discussion.html">
-                        <div class="discussion">
-                            <div class="row">
-                                <div class="col-1 d-flex align-items-center justify-content-center">
-                                    <div class="profile-picture green">
-                                        <span>U2</span>
-                                    </div>
-                                </div>
-                                <div class="col-10">
-                                    <div class="discussion-header">
-                                        <h5 class="discussion-title">Discussion Title 2</h5>
-                                        <p class="discussion-user">User 2 <span class="posted-time">Posted 4 Hour Ago</span></p>
-                                    </div>
-                                </div>
-                                <div class="col-1">
-                                    <p class="discussion-forum">Forum 4</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>                
+                        </a>
+                    <% } %>         
                 </div>
             </div>
         </div>

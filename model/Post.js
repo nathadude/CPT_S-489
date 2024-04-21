@@ -1,8 +1,30 @@
 const sequelize = require('../db');
-const {Model, DataTypes} = require('sequelize');
+const {Model, DataTypes, where} = require('sequelize');
 
 class Post extends Model {
-   
+   static async getTrendingPost() {
+        try {
+            const posts = await Post.findAll();
+            return posts ? posts : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+   }
+
+   static async getForumPost(forumID) {
+    try {
+        const posts = await Post.findAll({
+            where: {
+                forumID: forumID
+            }
+        });
+        return posts ? posts : null;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
 }
 
 Post.init({

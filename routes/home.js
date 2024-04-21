@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../model/User');
 const Forum = require('../model/Forum');
 const ForumMembers = require('../model/ForumMembers');
+const Post = require('../model/Post');
 
 const sessionChecker = (req, res, next)=>{
   if(req.session.user){
@@ -23,8 +24,14 @@ router.get('/', async function(req, res, next) {
   const forumIDs = forumMemberships.map(member => member.forumID);
   // gets the forum from the forum id's
   const forums = await Forum.getForums(forumIDs);
-  console.log(forums)
-  res.render('home', { forums });
+  // gets trending posts
+  const posts = await Post.getTrendingPost();
+  let forumNames = [];
+  for (post of posts) {
+    const forum = await Forum.getForum(post.forumID);
+    forumNames.push(forum.forumName);
+  }
+  res.render('home', { forums, posts, forumNames});
 
 });
 
@@ -59,9 +66,65 @@ router.post("/createForum", async function(req, res, next) {
 router.get('/:forumID', async function(req, res, next) {
   const forum = await Forum.getForum(req.params.forumID);
   if (forum) {
-    res.render('forum', { forum });
+    const isMember = await ForumMembers.isMember(req.session.user.username, req.params.forumID);
+    const posts = await Post.getForumPost(forum.forumID);
+    res.render('forum', { forum, isMember, posts });
   } else {
     res.redirect('/home/?msg=forum+not+found&?forumid='+req.params.forumID);
+  }
+});
+
+router.post("/:forumID/joinForum", async function(req, res, next) {
+  const forumID = req.params.forumID;
+  const username = req.session.user.username;
+
+  try {
+      // Check if the user is already a member of the forum
+      const isMember = await ForumMembers.isMember(username, forumID);
+
+      if (!isMember) {
+          // User is not a member, so join the forum
+          await ForumMembers.create({
+            username: username,
+            forumID: forumID
+          });
+          res.redirect('/home/' + forumID + '?msg=joinedforum');
+      } else {
+          // User is already a member, handle accordingly (e.g., show a message)
+          res.redirect('/home/' + forumID + '?msg=alreadymember');
+      }
+  } catch (error) {
+      // Handle errors (e.g., database errors)
+      console.error(error);
+      res.redirect('/home/' + forumID + '?msg=error');
+  }
+});
+
+router.post("/:forumID/leaveForum", async function(req, res, next) {
+  const forumID = req.params.forumID;
+  const username = req.session.user.username;
+
+  try {
+      // Check if the user is already a member of the forum
+      const isMember = await ForumMembers.isMember(username, forumID);
+
+      if (isMember) {
+          // User is not a member, so leave the forum
+          await ForumMembers.destroy({
+            where: {
+              username: username,
+              forumID: forumID
+            }
+          })
+          res.redirect('/home/' + forumID + '?msg=leftforum');
+      } else {
+          // User is already a member, handle accordingly (e.g., show a message)
+          res.redirect('/home/' + forumID + '?msg=alreadynotmember');
+      }
+  } catch (error) {
+      // Handle errors (e.g., database errors)
+      console.error(error);
+      res.redirect('/home/' + forumID + '?msg=error');
   }
 });
 

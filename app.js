@@ -88,6 +88,33 @@ async function setup() {
     forumID: '2'
   });
 
+  const post1 = await Post.create({
+    'username': 'josh',
+    'forumID': 1,
+    'title': "What is the best major at WSU",
+    'content': "I am wondering what the best program at WSU is. I am a first year student and I'm not sure what I want to pursue.",
+    'created_at': currentDate.toLocaleString(),
+    'votes': 5
+  });
+
+  const post2 = await Post.create({
+    'username': 'josh',
+    'forumID': 1,
+    'title': "Dorm Life at WSU",
+    'content': "I was wondering what the dorms were like here at wsu?",
+    'created_at': currentDate.toLocaleString(),
+    'votes': 30
+  });
+
+  const post3 = await Post.create({
+    'username': 'josh',
+    'forumID': 2,
+    'title': "Model View Controller",
+    'content': "Can someone help explain the concept of MVC in Web dev?",
+    'created_at': currentDate.toLocaleString(),
+    'votes': 0
+  });
+
 
   console.log("josh instance created...");
 }
