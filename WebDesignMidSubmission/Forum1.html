@@ -48,6 +48,71 @@
                 </div>
             </div>
         </a>
+        </div>
+    <div class="discussion-list">
+        <a href="./Discussion.html" class="discussion-link">
+            <div class="discussion">
+                <div class="row">
+                    <div class="col-1 d-flex align-items-center justify-content-center">
+                        <div class="profile-picture">
+                            <span>U3</span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="discussion-header">
+                            <h5 id="discussion-title" class="discussion-title">Discussion Title 3</h5>
+                            <p id="discussion-user" class="discussion-user">User 3 <span class="posted-time">Posted 1 Hour Ago</span></p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <p class="discussion-forum">Forum 1</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <div id="comments-list"></div>
+        <button type="button" class="btn btn-primary" id="new-discussion-button">New Discussion</button>
+<script>
+    document.getElementById('new-discussion-button').addEventListener('click', function() {
+      var newCommentBody = prompt("Enter the body of the new discussion:");
+      if (newCommentBody && newCommentBody.trim().length > 0) {
+        // Send the comment to the server
+        var request = new XMLHttpRequest();
+        request.open("POST", "/api/comments", true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.onreadystatechange = function() {
+          if (request.readyState === 4 && request.status === 200) {
+            // The comment was successfully posted, so refresh the list of comments
+            refreshCommentsList();
+          }
+        };
+        var data = JSON.stringify({ postId: "1", body: newCommentBody });
+        request.send(data);
+      }
+    });
+    
+    function refreshCommentsList() {
+      // Retrieve the list of comments from the server and update the page
+      var request = new XMLHttpRequest();
+      request.open("GET", "/api/comments?postId=1", true);
+      request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+          var comments = JSON.parse(request.responseText);
+          var commentsList = document.getElementById("comments-list");
+          commentsList.innerHTML = "";
+          for (var i = 0; i < comments.length; i++) {
+            var commentDiv = document.createElement("div");
+            commentDiv.className = "comment";
+            commentDiv.innerHTML = "<p>" + comments[i].body + "</p>";
+            commentsList.appendChild(commentDiv);
+          }
+        }
+      };
+      request.send();
+    }
+    
+    refreshCommentsList();
+    </script>
     </div>
 </body>
 </html>
