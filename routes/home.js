@@ -56,4 +56,13 @@ router.post("/createForum", async function(req, res, next) {
   }
 });
 
+router.get('/:forumID', async function(req, res, next) {
+  const forum = await Forum.getForum(req.params.forumID);
+  if (forum) {
+    res.render('forum', { forum });
+  } else {
+    res.redirect('/home/?msg=forum+not+found&?forumid='+req.params.forumID);
+  }
+});
+
 module.exports = router;

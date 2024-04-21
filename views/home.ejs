@@ -60,6 +60,14 @@
             background-color: orange;
             display: inline-block;
         }
+
+        .ml-30 {
+            margin-left: 30px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
         
         .nav-bar {
             border-bottom: 1px solid #aaa;
@@ -221,7 +229,7 @@
         <div class="row row-cols-3 nav-bar ht50 d-flex align-items-center">
             <div class="col d-flex align-items-center">
                 <a id="website-title-link" href="./home">
-                    <H3>CougConnect</H3>
+                    <H3 class="bold">CougConnect</H3>
                 </a>
                 <a id="home-title-link" href="./home">
                     <i class="fa-solid fa-house"></i>
@@ -271,10 +279,10 @@
                     </div>
                     </div>
                 </div>
-                <p>Your Forums</p>
+                <p class="ml-30 bold">FORUMS</p>
                 <div class="forums-list" id="forums-list">
                     <% for (forum of forums) { %>
-                        <a id="forum" href="./Forum1.html" role="menuitem">
+                        <a id="forum" href="/home/<%= forum.forumID %>" role="menuitem">
                             <div class="blue-box"></div>
                             <span class="forum-name"><%= forum.forumName %></span>
                         </a>

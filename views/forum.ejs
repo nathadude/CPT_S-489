@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum 1</title>
+    <link rel="stylesheet" href="Forum1.css">
+    <style>
+        /* Reset default browser styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .nav-bar {
+            border-bottom: 1px solid #aaa;
+            display: flex;
+            justify-content: space-between; /* Adjust spacing between elements */
+            align-items: center; /* Vertically center align items */
+            /* top: 0;
+            left: 0;
+            right: 0;
+            position: fixed;
+            z-index: 1; */
+        }
+
+        #website-title-link {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-family: sans-serif;
+            margin-left: 30px;
+            margin-top: 8px;
+        }
+        
+        
+        #home-title-link {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-family: sans-serif;
+            font-size: 15px;
+            padding-left: 50px;
+        }
+        
+        .home-title {
+            padding-left: 5px;
+        }
+        
+        .home-title:hover {
+            font-weight: bolder;
+        }
+        
+        .fa-user {
+            margin-right: 50px;
+        }
+
+        /* Container for discussion list */
+        .discussion-list {
+            margin: 20px;
+        }
+
+        /* Individual discussion item */
+        .discussion {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .discussion-link {
+            text-decoration: none;
+            color: inherit;
+            font-family: sans-serif;
+        }
+
+        /* Profile picture */
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            font-family: sans-serif;
+            background-color: #b58787;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-picture span {
+            font-weight: bold;
+        }
+
+        /* Profile picture with green border */
+        .profile-picture.green {
+            border: 2px solid #00cc00;
+        }
+
+        /* Discussion title */
+        .discussion-title {
+            margin-bottom: 5px;
+        }
+
+        /* Discussion user */
+        .discussion-user {
+            font-size: 14px;
+            font-family: sans-serif;
+            color: #555;
+        }
+
+        /* Posted time */
+        .posted-time {
+            font-style: italic;
+            font-family: sans-serif;
+            margin-left: 5px;
+        }
+
+        /* Discussion forum */
+        .discussion-forum {
+            text-align: center;
+        }
+
+        .forum-info {
+            border: 1px solid #ccc; /* Border around the forum info */
+            margin-top: 20px; /* Padding inside the box */
+            margin-left: 20px; /* Margin bottom to separate boxes */
+            margin-right: 20px;
+            padding-left: 20px;
+        }
+
+    </style>
+    <script src="https://kit.fontawesome.com/5984b07bdc.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row row-cols-3 nav-bar ht50 d-flex align-items-center">
+        <div class="col d-flex align-items-center">
+            <a id="website-title-link" href="./home">
+                <H3 class="bold">CougConnect</H3>
+            </a>
+            <a id="home-title-link" href="./home">
+                <i class="fa-solid fa-house"></i>
+                <span class="home-title">Home</span>
+            </a>
+        </div>     
+        <div class="col d-flex justify-content-end align-items-center">
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </div>
+    <div class="forum-info">
+        <div class="forum-name">
+            <h1><%= forum.forumName %></h1>
+        </div>
+        <hr class="divider">
+        <div class="forum-description">
+            <p><%= forum.forumDesc %></p>
+        </div>
+    </div>
+    <div class="discussion-list">
+        <a href="./Discussion.html" class="discussion-link">
+            <div class="discussion">
+                <div class="row">
+                    <div class="col-1 d-flex align-items-center justify-content-center">
+                        <div class="profile-picture">
+                            <span>U1</span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="discussion-header">
+                            <h5 class="discussion-title">Discussion Title 1</h5>
+                            <p class="discussion-user">User 1 <span class="posted-time">Posted 1 Hour Ago</span></p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <p class="discussion-forum">Forum 1</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="./Discussion.html" class="discussion-link">
+            <div class="discussion">
+                <div class="row">
+                    <div class="col-1 d-flex align-items-center justify-content-center">
+                        <div class="profile-picture green">
+                            <span>U2</span>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="discussion-header">
+                            <h5 class="discussion-title">Discussion Title 2</h5>
+                            <p class="discussion-user">User 2 <span class="posted-time">Posted 4 Hour Ago</span></p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <p class="discussion-forum">Forum 1</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

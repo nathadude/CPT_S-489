@@ -2,6 +2,16 @@ const sequelize = require('../db');
 const {Model, DataTypes} = require('sequelize');
 
 class Forum extends Model {
+    static async getForum(forumID) {
+        try {
+            const forum = await Forum.findByPk(forumID);
+            return forum ? forum : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
    static async getForums(forumIDs) {
     try {
         const forums = await Forum.findAll({
