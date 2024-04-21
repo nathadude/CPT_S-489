@@ -4,7 +4,9 @@ const {Model, DataTypes, where} = require('sequelize');
 class Post extends Model {
    static async getTrendingPost() {
         try {
-            const posts = await Post.findAll();
+            const posts = await Post.findAll({
+                order: [['votes', 'DESC']]
+            })
             return posts ? posts : null;
         } catch (error) {
             console.log(error);
@@ -13,18 +15,47 @@ class Post extends Model {
    }
 
    static async getForumPost(forumID) {
-    try {
-        const posts = await Post.findAll({
-            where: {
-                forumID: forumID
-            }
-        });
-        return posts ? posts : null;
-    } catch (error) {
-        console.log(error);
-        return null;
+        try {
+            const posts = await Post.findAll({
+                where: {
+                    forumID: forumID
+                },
+                order: [
+                    ['created_at', 'DESC']
+                ]
+            });
+            return posts ? posts : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
     }
-}
+
+    static async upvote(postID) {
+        try {
+            const post = await Post.findByPk(postID);
+            post.votes += 1;
+            await post.save();
+
+            // Send a success response
+            res.sendStatus(200);
+        } catch (error) {
+            console.log(error);
+            res.sendStatus(500);
+        }
+    }
+
+    static async downvote(postID) {
+        try {
+            const post = await Post.findByPk(postID);
+            post.votes -= 1;
+            await post.save();
+            res.sendStatus(200);
+        } catch (error) {
+            console.log(error);
+            res.sendStatus(500);
+        }
+    }
 }
 
 Post.init({

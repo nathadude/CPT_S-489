@@ -63,6 +63,24 @@ router.post("/createForum", async function(req, res, next) {
   }
 });
 
+router.post("/upvote", async function(req, res, next) {
+  try {
+    await Post.upvote(req.body.postID);
+    res.redirect('/home?msg=upvotesuccess');
+  } catch (error) {
+    res.redirect('/home?upvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
+router.post("/downvote", async function(req, res, next) {
+  try {
+    await Post.downvote(req.body.postID);
+    res.redirect('/home?msg=downvotesuccess');
+  } catch (error) {
+    res.redirect('/home?downvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
 router.get('/:forumID', async function(req, res, next) {
   const forum = await Forum.getForum(req.params.forumID);
   if (forum) {
@@ -127,5 +145,6 @@ router.post("/:forumID/leaveForum", async function(req, res, next) {
       res.redirect('/home/' + forumID + '?msg=error');
   }
 });
+
 
 module.exports = router;
