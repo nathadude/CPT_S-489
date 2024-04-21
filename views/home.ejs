@@ -303,7 +303,7 @@
                 <div class="discussion-list">
                     <% let i = 0 %>
                     <% for (post of posts) { %>
-                        <a id="discussion-link" href="./Discussion.html">
+                        <a id="discussion-link" href="/home/<%= forumNames[i][0] %>/<%= post.postID %>">
                             <div class="discussion">
                                 <div class="row">
                                     <div class="col-1 d-flex align-items-start justify-content-center">
@@ -333,7 +333,7 @@
                                     </div>
                                     <div class="col-1">
                                         <div class="discussion-forum">
-                                            <span><%= forumNames[i++] %></span>
+                                            <span><%= forumNames[i++][1] %></span>
                                         </div>
                                     </div>
                                 </div>

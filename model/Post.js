@@ -56,6 +56,16 @@ class Post extends Model {
             res.sendStatus(500);
         }
     }
+
+    static async getPost(postID) {
+        try {
+            const post = await Post.findByPk(postID);
+            return post ? post : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
 }
 
 Post.init({

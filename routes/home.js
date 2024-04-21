@@ -29,7 +29,7 @@ router.get('/', async function(req, res, next) {
   let forumNames = [];
   for (post of posts) {
     const forum = await Forum.getForum(post.forumID);
-    forumNames.push(forum.forumName);
+    forumNames.push([forum.forumID, forum.forumName]);
   }
   res.render('home', { forums, posts, forumNames});
 
@@ -143,6 +143,15 @@ router.post("/:forumID/leaveForum", async function(req, res, next) {
       // Handle errors (e.g., database errors)
       console.error(error);
       res.redirect('/home/' + forumID + '?msg=error');
+  }
+});
+
+router.get('/:forumID/:postID', async function(req, res, next) {
+  const post = await Post.getPost(req.params.postID);
+  if (post) {
+    res.render('discussion', { post });
+  } else {
+    res.redirect('/home/?msg=post+not+found&?postid='+req.params.postID);
   }
 });
 
