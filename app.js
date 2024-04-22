@@ -8,6 +8,7 @@ const sequelize = require('./db')
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
+var settingsRouter = require('./routes/settings')
 const User = require('./model/User');
 const Forum = require('./model/Forum');
 const Post = require('./model/Post');
@@ -37,6 +38,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
+app.use('/settings', settingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,6 +61,22 @@ async function setup() {
   const josh = await User.create({
     username: 'josh', 
     password: '1234',
+    registration_date: currentDate.toLocaleString(),
+    premium: false,
+    admin: false
+  });
+
+  const nate = await User.create({
+    username: 'nate', 
+    password: '5465',
+    registration_date: currentDate.toLocaleString(),
+    premium: false,
+    admin: false
+  });
+
+  const amanda = await User.create({
+    username: 'amanda', 
+    password: '4321',
     registration_date: currentDate.toLocaleString(),
     premium: false,
     admin: false
@@ -116,7 +134,7 @@ async function setup() {
   });
 
 
-  console.log("josh instance created...");
+  console.log("josh, nate, and amanda users created...");
 }
 
 sequelize.sync({ force: true }).then(()=>{
