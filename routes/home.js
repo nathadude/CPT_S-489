@@ -8,7 +8,7 @@ const Comment = require('../model/Comments');
 
 const sessionChecker = (req, res, next)=>{
   if(req.session.user){
-    res.locals.username = req.session.user.username
+    res.locals.username = req.session.user.username;
     next()
   }else{
     res.redirect("/?msg=raf")
@@ -19,20 +19,22 @@ router.use(sessionChecker);
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
+  const user = req.session.user;
   // Get all the forums that the user is a member of
   const forumMemberships = await ForumMembers.getUserForums(req.session.user.username);
   // Extract the forum IDs from the forum memberships
   const forumIDs = forumMemberships.map(member => member.forumID);
   // gets the forum from the forum id's
-  const forums = await Forum.getForums(forumIDs);
+  const forums = await Forum.getAllForums();
+
   // gets trending posts
   const posts = await Post.getTrendingPost();
   let forumNames = [];
-  for (post of posts) {
+  for (let post of posts) {
     const forum = await Forum.getForum(post.forumID);
     forumNames.push([forum.forumID, forum.forumName]);
   }
-  res.render('home', { forums, posts, forumNames});
+  res.render('home', { forums, posts, forumNames, user});
 
 });
 

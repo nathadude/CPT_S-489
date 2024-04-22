@@ -12,6 +12,32 @@ class Forum extends Model {
         }
     }
 
+    static async getAllForums() {
+        try {
+            const forums = await Forum.findAll();
+            return forums ? forums : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
+    static async getForumsNotIn(forumIDs) {
+        try {
+            const forums = await Forum.findAll({
+                where: {
+                    forumID: {
+                        [Op.notIn]: forumIDs // Assuming forumIDs is an array
+                    }
+                }
+            });
+            return forums;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
    static async getForums(forumIDs) {
     try {
         const forums = await Forum.findAll({

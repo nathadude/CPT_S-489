@@ -2,7 +2,7 @@ const sequelize = require('../db');
 const {Model, DataTypes} = require('sequelize');
 
 class User extends Model {
-    static async findUser(username, password) {
+    static async findUser1(username, password) {
         try {
             const user = await User.findByPk(username);
             if (user && user.password === password) {
@@ -11,6 +11,40 @@ class User extends Model {
             else {
                 return null;
             }
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
+    static async findUser(username, password){
+        try {
+            const user = await User.findByPk(username)
+            if(user && user.password === password){
+                return user
+            }else{
+                return null
+            }
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    }
+
+    static async getUser(username) {
+        try {
+            const user = await User.findByPk(username);
+            return user ? user : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
+    static async getUsers() {
+        try {
+            const users = await User.findAll();
+            return users ? users : null;
         } catch (error) {
             console.log(error);
             return null;
