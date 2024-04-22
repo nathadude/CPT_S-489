@@ -1,8 +1,24 @@
 const sequelize = require('../db');
 const {Model, DataTypes} = require('sequelize');
+const { post } = require('../routes');
 
 class Comments extends Model {
-   
+   static async getComments(postID) {
+        try {
+            const comments = await Comments.findAll({
+                where: {
+                    postID: postID
+                },
+                order: [
+                    ['created_at', 'DESC']
+                ]
+            });
+            return comments ? comments : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+   }
 }
 
 Comments.init({

@@ -4,6 +4,7 @@ const User = require('../model/User');
 const Forum = require('../model/Forum');
 const ForumMembers = require('../model/ForumMembers');
 const Post = require('../model/Post');
+const Comment = require('../model/Comments');
 
 const sessionChecker = (req, res, next)=>{
   if(req.session.user){
@@ -149,7 +150,8 @@ router.post("/:forumID/leaveForum", async function(req, res, next) {
 router.get('/:forumID/:postID', async function(req, res, next) {
   const post = await Post.getPost(req.params.postID);
   if (post) {
-    res.render('discussion', { post });
+      const comments = await Comment.getComments(req.params.postID);
+    res.render('discussion', { post, comments });
   } else {
     res.redirect('/home/?msg=post+not+found&?postid='+req.params.postID);
   }
@@ -174,6 +176,25 @@ router.post("/:forumID/createPost", async function(req, res, next) {
     res.redirect('/home/' + req.params.forumID + '?msg=success&postTitle='+req.body.title);
   } catch (error) {
     res.redirect('/home/' + req.params.forumID + '?msg='+new URLSearchParams(error.toString()).toString()+'&postTitle='+req.body.title);
+  }
+});
+
+router.post("/:forumID/:postID/sendComment", async function(req, res, next) {
+  try {
+    let currentDate = new Date();
+    let created_at = currentDate.toLocaleString();
+    await Comment.create(
+      {
+        username: req.session.user.username,
+        postID: req.params.postID,
+        content: req.body.content,
+        created_at: created_at,
+      }
+    );
+
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?msg=success&postTitle='+req.body.title);
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?msg='+new URLSearchParams(error.toString()).toString()+'&postTitle='+req.body.title);
   }
 });
 

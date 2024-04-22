@@ -72,6 +72,17 @@
             padding: 10px;
         }
 
+        .discussion-comment {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .comments-list {
+            margin-top: 20px;
+        }
+
         .discussion-link {
             text-decoration: none;
             color: inherit;
@@ -151,7 +162,6 @@
         </div>
     </div>
     <div class="discussion-list">
-            <a class="discussion-link" href="./Discussion.html">
                 <div class="discussion">
                     <div class="row">
                         <div class="col-1 d-flex align-items-start justify-content-center">
@@ -170,7 +180,39 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            <div class="comments">
+                <form action="/home/<%= post.forumID %>/<%= post.postID %>/sendComment" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <textarea name ="content" class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Add a Comment"></textarea>
+                        </div>
+                        <div class="col-auto">
+                            <input type="submit" value="Send Comment" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="comments-list">
+                <% for (comment of comments) { %>
+                    <div class="discussion-comment">
+                        <div class="row">
+                            <div class="col-1 d-flex align-items-start justify-content-center">
+                                <div class="profile-picture">
+                                    <span><%= comment.username[0] %></span>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="discussion-header">
+                                    <p class="discussion-user"><%= post.username %> <span class="posted-time">Sent at <%= comment.created_at %></span></p>
+                                </div>
+                                <div class="discussion-body">
+                                    <p class="discussion-content"><%= comment.content %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
