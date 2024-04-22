@@ -5,25 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
     <title>Login</title>
-    <script>
-        function login() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-            
-            if (username === "admin" && password === "admin") {
-                console.log("Login successful");
-                window.location.href = "home.html"; // Redirect to home.html
-            } else {
-                console.log("Login failed");
-                document.getElementById("loginMessage").innerText = "Login failed. Try again.";
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="loginForm" action="/login" method="POST">
             <div class="input-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -32,9 +18,40 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="button" onclick="login()">Login</button>
+            <button type="submit">Login</button>
         </form>
         <p id="loginMessage"></p>
     </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const username = formData.get("username");
+            const password = formData.get("password");
+
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Login failed");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Login successful");
+                window.location.href = "Home.html"; // Redirect to home.html
+            })
+            .catch(error => {
+                console.error("Login failed:", error.message);
+                document.getElementById("loginMessage").innerText = "Login failed. Try again.";
+            });
+        });
+    </script>
 </body>
 </html>
