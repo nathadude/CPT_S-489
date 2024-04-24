@@ -37,11 +37,11 @@ class Post extends Model {
             post.votes += 1;
             await post.save();
 
-            // Send a success response
-            res.sendStatus(200);
+            return true;
+            
         } catch (error) {
             console.log(error);
-            res.sendStatus(500);
+            return null;
         }
     }
 
@@ -50,10 +50,10 @@ class Post extends Model {
             const post = await Post.findByPk(postID);
             post.votes -= 1;
             await post.save();
-            res.sendStatus(200);
+            return true;
         } catch (error) {
             console.log(error);
-            res.sendStatus(500);
+            return null;
         }
     }
 

@@ -102,8 +102,8 @@ async function setup() {
   });
 
   const forum2 = await Forum.create({
-    username: 'josh', // who the forum is created by
-    forumName: 'CPTS489',
+    username: 'nate', // who the forum is created by
+    forumName: 'CPTS 489',
     forumDesc: 'This is a forum for anything about CPTS 489/Web Dev',
     created_at: currentDate.toLocaleString()
   });
@@ -114,7 +114,7 @@ async function setup() {
   });
 
   const forumMember2 = await ForumMembers.create({
-    username: 'josh',
+    username: 'nate',
     forumID: '2'
   });
 
@@ -128,7 +128,7 @@ async function setup() {
   });
 
   const post2 = await Post.create({
-    'username': 'josh',
+    'username': 'admin',
     'forumID': 1,
     'title': "Dorm Life at WSU",
     'content': "I was wondering what the dorms were like here at wsu?",
@@ -137,7 +137,7 @@ async function setup() {
   });
 
   const post3 = await Post.create({
-    'username': 'joshadmin',
+    'username': 'amanda',
     'forumID': 2,
     'title': "Model View Controller",
     'content': "Can someone help explain the concept of MVC in Web dev?",
@@ -145,8 +145,24 @@ async function setup() {
     'votes': 0
   });
 
+  const post4 = await Post.create({
+    'username': 'nate',
+    'forumID': 2,
+    'title': "Favorite Topic",
+    'content': "What is your favorite topic from Web Dev",
+    'created_at': currentDate.toLocaleString(),
+    'votes': 0
+  });
 
-  console.log("josh, nate, and amanda users created...");
+  const comment1 = await Comments.create({
+    username: "amanda",
+    postID: 1,
+    content: "Computer Science is the best!",
+    created_at: currentDate.toLocaleString(),
+  });
+
+
+  console.log("josh, nate, amanda and admin users created...");
 }
 
 sequelize.sync({ force: true }).then(()=>{

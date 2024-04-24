@@ -19,4 +19,14 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
+router.get('/logout', function(req,res, next){
+  if(req.session.user){
+    //req.session.destroy()
+    res.redirect("/?msg=logout")
+  }else {
+    res.redirect("/")
+  }
+  
+});
+
 module.exports = router;

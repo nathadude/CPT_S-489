@@ -3,9 +3,14 @@ var router = express.Router();
 const User = require('../model/User');
 
 router.get('/:username', async function(req, res, next) {
-    const user = await User.getUser(req.params.username);
-    const users = await User.getUsers();
-    res.render('admin', { user, users } );
+    const user = await User.getUser(req.session.user.username);
+    if (user.admin === true) {
+        const users = await User.getUsers();
+        res.render('admin', { user, users } );
+    }
+    else {
+        res.redirect('/home/?msg=notadmin');
+    }
 });
 
 router.post('/:username/deleteUser', async function(req, res, next) {

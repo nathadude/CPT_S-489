@@ -253,11 +253,13 @@
                 </a>
             </div>     
             <div class="col d-flex justify-content-end align-items-center">
-                <i class="fa-solid fa-user"></i>
+                <a id="account-icon-link" href="/settings/<%= user.username %>">
+                    <i class="fa-solid fa-user"></i>
+                </a>
                 <% if (user.admin === true) { %>
                     <a id="home-title-link" href="/admin/<%= user.username %>">
                         <i class="fa-solid fa-server"></i>
-                    </a>    
+                    </a>
                 <% } %>
             </div>
         </div>

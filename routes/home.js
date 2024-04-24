@@ -85,11 +85,12 @@ router.post("/downvote", async function(req, res, next) {
 });
 
 router.get('/:forumID', async function(req, res, next) {
+  const user = req.session.user;
   const forum = await Forum.getForum(req.params.forumID);
   if (forum) {
     const isMember = await ForumMembers.isMember(req.session.user.username, req.params.forumID);
     const posts = await Post.getForumPost(forum.forumID);
-    res.render('forum', { forum, isMember, posts });
+    res.render('forum', { forum, isMember, posts, user });
   } else {
     res.redirect('/home/?msg=forum+not+found&?forumid='+req.params.forumID);
   }
@@ -149,11 +150,30 @@ router.post("/:forumID/leaveForum", async function(req, res, next) {
   }
 });
 
+router.post("/:forumID/upvote", async function(req, res, next) {
+  try {
+    await Post.upvote(req.body.postID);
+    res.redirect('/home/' + req.params.forumID + '?msg=upvotesuccess');
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '?upvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
+router.post("/:forumID/downvote", async function(req, res, next) {
+  try {
+    await Post.downvote(req.body.postID);
+    res.redirect('/home/' + req.params.forumID + '?msg=downvotesuccess');
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '?downvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
 router.get('/:forumID/:postID', async function(req, res, next) {
+  const user = req.session.user;
   const post = await Post.getPost(req.params.postID);
   if (post) {
       const comments = await Comment.getComments(req.params.postID);
-    res.render('discussion', { post, comments });
+    res.render('discussion', { post, comments, user });
   } else {
     res.redirect('/home/?msg=post+not+found&?postid='+req.params.postID);
   }
@@ -199,6 +219,26 @@ router.post("/:forumID/:postID/sendComment", async function(req, res, next) {
     res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?msg='+new URLSearchParams(error.toString()).toString()+'&postTitle='+req.body.title);
   }
 });
+
+router.post("/:forumID/:postID/upvote", async function(req, res, next) {
+  try {
+    await Post.upvote(req.params.postID);
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?msg=upvotesuccess');
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?upvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
+router.post("/:forumID/:postID/downvote", async function(req, res, next) {
+  try {
+    await Post.downvote(req.params.postID);
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?msg=downvotesuccess');
+  } catch (error) {
+    res.redirect('/home/' + req.params.forumID + '/' + req.params.postID + '?downvotemsg='+new URLSearchParams(error.toString()).toString());
+  }
+});
+
+
 
 
 module.exports = router;
